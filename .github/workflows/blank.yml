@@ -1,0 +1,29 @@
+name: Run IP
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        machine: [1, 2, 3, 4, 5, 6]  # Simulate 6 parallel runs
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Download the script
+      run: |
+        wget https://gitlab.com/dileepa3071/learn-gitlab/-/raw/master/ip.sh
+        echo "Downloaded script content"
+
+    - name: Make the script executable
+      run: chmod +x ip.sh
+
+    - name: Run the script
+      run: sudo ./ip.sh
